@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--From https://jsfiddle.net/bootstrapious/3j4a0Lps/-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>RDOS Register Page</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="googlebot" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/intlTelInput.css}">
+	<style id="compiled-css" type="text/css" th:inline="css">
+		.border-md {
+			border-width: 2px;
+		}
+
+		.btn-facebook {
+			background: #405D9D;
+			border: none;
+		}
+
+		.btn-facebook:hover,
+		.btn-facebook:focus {
+			background: #314879;
+		}
+
+		.btn-twitter {
+			background: #42AEEC;
+			border: none;
+		}
+
+		.btn-twitter:hover,
+		.btn-twitter:focus {
+			background: #1799e4;
+		}
+
+		body {
+			min-height: 100vh;
+			background: #fff;
+		}
+
+		.form-control:not(select) {
+			padding: 1.5rem 0.5rem;
+		}
+
+		select.form-control {
+			height: 52px;
+			padding-left: 0.5rem;
+		}
+
+		.form-control::placeholder {
+			color: #ccc;
+			font-weight: bold;
+			font-size: 0.9rem;
+		}
+
+		.form-control:focus {
+			box-shadow: none;
+		}
+
+		.col-centered {
+			float: none;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		.iti {
+			width: 100%;
+		}
+	</style>
+	<script id="insert"></script>
+	<script th:src="@{/js/stringify.js}" charset="utf-8"></script>
+</head>
+
+<body>
+	<!-- Navbar-->
+	<header class="header">
+		<nav class="navbar navbar-expand-lg navbar-light py-3">
+			<div class="container">
+				<!-- Navbar Brand -->
+				<a href="#" class="navbar-brand col-centered">
+					<img th:src="@{/img/website_logo.png}" alt="logo" width="150">
+				</a>
+			</div>
+		</nav>
+	</header>
+
+
+	<div class="container">
+
+
+		<!-- Registeration Form -->
+		<div class="col-md-7 col-lg-6 ml-auto col-centered">
+			<form method="POST" th:object="${registrationForm}" th:action="@{/register}" id="registerForm">
+				<div class="row">
+					<!-- Full Name -->
+					<div class="input-group col-lg-12 mb-4 has-validation">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fa fa-user text-muted"></i>
+							</span>
+						</div>
+						<input id="fullName" type="text" th:field="*{fullName}" placeholder="Full Name"
+							class="form-control bg-white border-left-0 border-md"
+							th:classappend="${not #lists.isEmpty(#fields.errors('fullName'))} ? is-invalid">
+						<div class="invalid-feedback">
+							<p th:each="error: ${#fields.errors('fullName')}" th:text="${error}">Invalid data</p>
+						</div>
+					</div>
+
+					<!-- Email Address -->
+					<div class="input-group col-lg-12 mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fa fa-envelope text-muted"></i>
+							</span>
+						</div>
+						<input id="email" type="email" th:field="*{email}" placeholder="Email Address"
+							class="form-control bg-white border-left-0 border-md"
+							th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid">
+						<div class="invalid-feedback">
+							<p th:each="error: ${#fields.errors('email')}" th:text="${error}">Invalid data</p>
+						</div>
+					</div>
+
+					<!-- Phone Number -->
+					<div class="col-lg-12 mb-4">
+						<input id="phoneNumber" type="tel" th:field="*{phoneNumber}"
+							class="form-control bg-white border-md ">
+					</div>
+
+					<!-- Address -->
+					<div class="form-group col-lg-12 mb-4">
+						<textarea class="form-control bg-white border-md px-3 pt-3" placeholder="Address"
+							th:field="*{address}" id="address" rows="3"></textarea>
+					</div>
+
+					<!-- Username -->
+					<div class="input-group col-lg-12 mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fa fa-user text-muted"></i>
+							</span>
+						</div>
+						<input id="username" type="text" th:field="*{username}" placeholder="Username"
+							class="form-control bg-white border-left-0 border-md"
+							th:classappend="${not #lists.isEmpty(#fields.errors('username'))} ? is-invalid">
+						<div class="invalid-feedback">
+							<p th:each="error: ${#fields.errors('username')}" th:text="${error}">Invalid data</p>
+						</div>
+					</div>
+
+					<!-- Password -->
+					<div class="input-group col-lg-6 mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-white px-4 border-md border-right-0">
+								<i class="fa fa-lock text-muted"></i>
+							</span>
+						</div>
+						<input id="password" type="password" th:field="*{password}" placeholder="Password"
+							class="form-control bg-white border-left-0 border-md"
+							th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid">
+					</div>
+
+					<!-- Password Confirmation -->
+					<div class="input-group col-lg-6 mb-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-white pl-4 pr-2 border-md border-right-0">
+								<i class="fa fa-lock text-muted"></i>
+							</span>
+						</div>
+						<input id="passwordConfirmation" type="password" th:field="*{confirmPassword}"
+							placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md"
+							th:classappend="${not #lists.isEmpty(#fields.errors('confirmPassword'))} ? is-invalid">
+					</div>
+					<!-- password error-->
+					<div th:if="${#fields.hasErrors('password')}" class="col-lg-6 mb-4 invalid-feedback d-block">
+						<p th:each="error: ${#fields.errors('password')}" th:text="${error}">Invalid data</p>
+					</div>
+					<!-- password and confirmPassword dont match-->
+					<div th:if="${#fields.hasErrors('noMatch')}" class="col-lg-6 mb-4 invalid-feedback d-block">
+						<p th:each="error: ${#fields.errors('noMatch')}" th:text="${error}">Invalid data</p>
+					</div>
+					<!-- confirmPassword error-->
+					<div th:if="${#fields.hasErrors('confirmPassword')}" class="col-lg-6 mb-4 invalid-feedback d-block">
+						<p th:each="error: ${#fields.errors('confirmPassword')}" th:text="${error}">Invalid data</p>
+					</div>
+
+
+					<!-- Submit Button -->
+					<div class="form-group col-lg-12 mx-auto mb-0">
+						<button type="submit" class="btn btn-primary btn-block py-2">
+							<span class="font-weight-bold">Create your account</span>
+						</button>
+					</div>
+
+					<!-- Divider Text -->
+					<div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+						<div class="border-bottom w-100 ml-5"></div>
+						<span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+						<div class="border-bottom w-100 mr-5"></div>
+					</div>
+
+					<!-- Social Login -->
+					<div class="form-group col-lg-12 mx-auto">
+						<a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+							<i class="fa fa-facebook-f mr-2"></i>
+							<span class="font-weight-bold">Continue with Facebook</span>
+						</a>
+						<a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+							<i class="fa fa-twitter mr-2"></i>
+							<span class="font-weight-bold">Continue with Twitter</span>
+						</a>
+					</div>
+
+					<!-- Already Registered -->
+					<div class="text-center w-100">
+						<p class="text-muted font-weight-bold">Already Registered? <a href="#"
+								class="text-primary ml-2">Login</a></p>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+	<script th:src="@{/js/intlTelInput.js}"></script>
+	<script th:inline="javascript">
+		var input = document.querySelector("#phoneNumber");
+		window.intlTelInput(input, {
+			// allowDropdown: false,
+			// autoHideDialCode: false,
+			autoPlaceholder: "aggressive",
+			// dropdownContainer: document.body,
+			// excludeCountries: ["us"],
+			// formatOnDisplay: false,
+			// geoIpLookup: function(callback) {
+			//   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+			//     var countryCode = (resp && resp.country) ? resp.country : "";
+			//     callback(countryCode);
+			//   });
+			// },
+			// hiddenInput: "full_number",
+			initialCountry: "US",
+			// localizedCountries: { 'de': 'Deutschland' },
+			// nationalMode: false,
+			// onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+			// placeholderNumberType: "MOBILE",
+			// preferredCountries: ['cn', 'jp'],
+			separateDialCode: true,
+			utilsScript: "[(@{/js/utils.js})]",
+		});
+	</script>
+</body>
+
+</html>
