@@ -1,5 +1,7 @@
 # spring-boot-online-shop
 
+This information is accurate as of 23/2/2022
+
 ### Tech stack and libraries
 1. This project uses Spring boot MVC.
 1. MySQL is used as a database.
@@ -8,6 +10,31 @@
 1. JQuery and Ajax is used for the REST services.
 1. The original online store template is modified from https://www.bootstrapdash.com/product/free-bootstrap-login/.
 1. Bootstrap and various plugins are used in the design of the website.
+
+### Set up MYSQL database (Windows)
+1. Install MySQL and add it to path
+2. Run cmd as admin and run the command 
+```
+mysqld –initialize
+```
+This command creates the mysql system schema and its tables, and creates a 'root'@'localhost' superuser account with a random password
+
+3. Start the server with 
+```
+mysqld --console
+```
+4. Start another cmd as admin and use the command line client to login to the MySQL server
+
+```
+mysql -u root –p
+```
+This will prompt you to enter the random password generated earlier
+
+5. Create a database with the command 
+```
+CREATE DATABASE DatabaseName;
+```
+
 
 ### Set up
 1. In the application.properties file, change (database_name), (username) and (password) of the MySQL database
@@ -61,8 +88,7 @@ The file structure is as follows:
 |           maven-wrapper.jar
 |           maven-wrapper.properties
 |           MavenWrapperDownloader.java
-|           
-|       
+|                
 +---src
 |   +---main
 |   |   +---java
