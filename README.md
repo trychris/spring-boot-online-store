@@ -52,11 +52,6 @@ There are some reserved table names in MySQL, like Order
 
 The file structure is as follows:
 ```
-|   .classpath
-|   .factorypath
-|   .gitignore
-|   .project
-|   HELP.md
 |   mvnw
 |   mvnw.cmd
 |   pom.xml
@@ -67,12 +62,6 @@ The file structure is as follows:
 |           maven-wrapper.properties
 |           MavenWrapperDownloader.java
 |           
-+---.settings
-|       org.eclipse.core.resources.prefs
-|       org.eclipse.jdt.apt.core.prefs
-|       org.eclipse.jdt.core.prefs
-|       org.eclipse.m2e.core.prefs
-|       org.springframework.ide.eclipse.prefs
 |       
 +---src
 |   +---main
@@ -151,6 +140,4 @@ The file structure is as follows:
 |               \---entity
 |                       ShoppingCartTests.java
 |                       
-\---target                  
-    \---(Generated classes and test classes)
 ```
